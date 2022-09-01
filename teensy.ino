@@ -5,29 +5,30 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AsyncAudioInputSPDIF3    spdif_async1;   //xy=446.41976165771484,696.1728219985962
+AsyncAudioInputSPDIF3    spdif_async1(false, false, 120, 70, 80);   //xy=446.41976165771484,696.1728219985962
 AudioInputUSB            usb_in;         //xy=482.8641662597656,628.8394775390625
 AudioMixer4              mixer2;         //xy=630.8641662597656,793.8394775390625
 AudioMixer4              mixer1;         //xy=780.8641662597656,635.8394775390625
 AudioMixer4              mixer_mono;     //xy=810.8641662597656,847.8394775390625
-AudioFilterStateVariable filter_lp;      //xy=957.8641662597656,789.8394775390625
 AudioFilterStateVariable filter2;        //xy=975.8641662597656,623.8394775390625
+AudioFilterStateVariable filter_lp;      //xy=981.1975173950195,882.061695098877
 AudioFilterStateVariable filter1;        //xy=984.8641662597656,693.8394775390625
-AudioAnalyzeNoteFrequency notefreq1;      //xy=1094.8641662597656,848.8394775390625
+AudioAnalyzeNoteFrequency notefreq1;      //xy=1179.3085556030273,855.5061359405518
 AudioOutputI2S           i2s_out;        //xy=1185.8641662597656,624.8394775390625
 AudioConnection          patchCord1(spdif_async1, 0, mixer1, 0);
 AudioConnection          patchCord2(spdif_async1, 1, mixer2, 0);
 AudioConnection          patchCord3(usb_in, 0, mixer1, 1);
 AudioConnection          patchCord4(usb_in, 1, mixer2, 1);
 AudioConnection          patchCord5(mixer2, 0, mixer_mono, 1);
-AudioConnection          patchCord6(mixer2, 0, filter1, 0);
-AudioConnection          patchCord7(mixer1, 0, mixer_mono, 0);
-AudioConnection          patchCord8(mixer1, 0, filter2, 0);
-AudioConnection          patchCord9(mixer_mono, 0, filter_lp, 0);
-AudioConnection          patchCord10(filter_lp, 0, notefreq1, 0);
-AudioConnection          patchCord11(filter2, 0, i2s_out, 0);
+AudioConnection          patchCord6(mixer1, 0, mixer_mono, 0);
+AudioConnection          patchCord7(mixer_mono, 0, filter_lp, 0);
+AudioConnection          patchCord8(mixer_mono, 0, filter1, 0);
+AudioConnection          patchCord9(mixer_mono, 0, filter2, 0);
+AudioConnection          patchCord10(filter2, 0, i2s_out, 0);
+AudioConnection          patchCord11(filter_lp, 0, notefreq1, 0);
 AudioConnection          patchCord12(filter1, 2, i2s_out, 1);
 // GUItool: end automatically generated code
+
 
 unsigned long prevRun1 = 0;
 
@@ -35,6 +36,8 @@ void setup() {
   // put your setup code here, to run once:
 
   AudioMemory(1000);
+
+  
   mixer_mono.gain(0, 0.5);
   mixer_mono.gain(1, 0.5);
   
